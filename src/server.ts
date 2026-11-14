@@ -1,16 +1,17 @@
 import { createServer, IncomingMessage, Server, ServerResponse } from "http";
 import routeHandler from "./routes/route";
+import config from "./config";
 
-const server : Server = createServer((req : IncomingMessage,res : ServerResponse)=>{
-    // console.log("Request received:", req);
-    // console.log("Response sent:", res);
+const server: Server = createServer(
+  (req: IncomingMessage, res: ServerResponse) => {
+    //   console.log("Request : ", req);
+    //   console.log("Response : ", res);
+    // console.log(req.url);
+    // console.log(req.method);
+    routeHandler(req, res);
+  },
+);
 
-    // console.log("Request received:", req.method, req.url);
-
-    routeHandler(req,res);
-
-})
-
-server.listen(5000,()=>{
-    console.log("Server is running on port 5000 !");
-})
+server.listen(config.port, () => {
+  console.log(`Server is running on the port ${config.port}`);
+});
